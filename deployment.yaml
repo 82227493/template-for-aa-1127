@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: "99999598" 
+  name: "template-for-aa-1127" 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "99999598"
+      app: "template-for-aa-1127"
   template:
     metadata:
       labels:
-        app: "99999598" 
+        app: "template-for-aa-1127" 
     spec:
       containers:
-        - name: "99999598" 
-          image: cepgstapacr.azurecr.io/99999598
+        - name: "template-for-aa-1127" 
+          image: cepgstapacr.azurecr.io/template-for-aa-1127
           ports:
           - containerPort: 8080
