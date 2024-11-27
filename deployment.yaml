@@ -1,19 +1,50 @@
-apiVersion : apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "template-for-aa-1127" 
+  name: my-application
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "template-for-aa-1127"
+      app: my-application
   template:
     metadata:
       labels:
-        app: "template-for-aa-1127" 
+        app: my-application
     spec:
       containers:
-        - name: "template-for-aa-1127" 
-          image: cepgstapacr.azurecr.io/template-for-aa-1127
-          ports:
-          - containerPort: 8080
+      - name: my-application-container
+        image: your-docker-image
+        env:
+        - name: POSTGRES_URL
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: POSTGRES_URL
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: POSTGRES_USERNAME
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: POSTGRES_PASSWORD
+        - name: MAX_POOL_SIZE
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: MAX_POOL_SIZE
+        - name: MIN_IDLE
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: MIN_IDLE
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: postgres-pvc
