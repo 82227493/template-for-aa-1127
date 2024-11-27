@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-application
+  name: template-for-aa-1127
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: my-application
+      app: template-for-aa-1127
   template:
     metadata:
       labels:
-        app: my-application
+        app: template-for-aa-1127
     spec:
       containers:
-      - name: my-application-container
-        image: your-docker-image
+      - name: template-for-aa-1127-container
+        image: cepgbaseacr.azurecr.io/template-for-aa-1127
         env:
         - name: POSTGRES_URL
           valueFrom:
